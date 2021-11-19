@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Statistical Learning, Module III</title>
+
+<style type="text/css"></style>
+
+
+
+
+</head>
+
+<body>
+<div class="container">
+
+<h1>Statistical Learning, Module III</h1>
+
+
+
+<div id="program" class="section level2">
+<h2>Program</h2>
+<p><strong>Conformal prediction</strong></p>
+<p>While improving prediction accuracy has been the focus of machine learning in recent years, this alone does not suffice for reliable decision-making. Deploying learning systems in consequential settings also requires calibrating and communicating the <em>uncertainty</em> of predictions. We will introduce a recent line of work called distribution-free predictive inference (a.k.a. <em>conformal prediction</em>) that give prediction intervals with finite-sample statistical guarantees for any (possibly incorrectly specified) predictive model and any (unknown) underlying distribution of the data, ensuring reliable uncertainty quantification for predictions.</p>
+<p><a href="docs/conformal.pdf">Course notes on conformal prediction</a></p>
+<table>
+<tr>
+<td>
+<em>Topic</em>
+</td>
+<td>
+<em>R code</em>
+</td>
+</tr>
+<tr>
+<td>
+Marginal vs conditional coverage
+</td>
+<td>
+<a href="docs/coverage.txt">coverage</a>
+</td>
+</tr>
+<tr>
+<td>
+Split conformal prediction
+</td>
+<td>
+<a href="docs/cp_split.txt">cp_split</a>
+</td>
+</tr>
+</table>
+<p><strong>Variable selection with statistical guarantees</strong></p>
+<p>In many fields of science, we observe a response variable together with a large number of potential explanatory variables, and we would like to be able to discover which predictors are important for the response. We will introduce a recent set of methods (<em>sample splitting</em>, <em>stability selection</em> and the <em>knockoff filter</em>) that allow to identify the truly important predictors with rigorous statistical guarantees.</p>
+<p><a href="docs/vs.pdf">Course notes on variable selection</a></p>
+<table>
+<tr>
+<td>
+<em>Topic</em>
+</td>
+<td>
+<em>R code</em>
+</td>
+</tr>
+<tr>
+<td>
+High-dimensional regression
+</td>
+<td>
+<a href="docs/regression_hd.txt">regression_hd</a>
+</td>
+</tr>
+<tr>
+<td>
+Stability selection
+</td>
+<td>
+<a href="docs/stability.txt">stability</a>
+</td>
+</tr>
+<tr>
+<td>
+Knockoffs filter
+</td>
+<td>
+<a href="docs/knockoffs.txt">knockoffs</a>
+</td>
+</tr>
+</table>
+</div>
+<div id="calendar" class="section level2">
+<h2>Calendar</h2>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>N</th>
+<th></th>
+<th>Date</th>
+<th></th>
+<th>Hours</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>1</td>
+<td></td>
+<td>November 29, 2021</td>
+<td></td>
+<td>10:00 - 12:00, 14:00 - 16:00 (4 hours)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>2</td>
+<td></td>
+<td>November 30, 2021</td>
+<td></td>
+<td>10:00 - 12:00, 14:00 - 16:00 (4 hours)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="exam" class="section level2">
+<h2>Exam</h2>
+<p>December 14, 2021, h 14:00</p>
+</div>
+
+
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

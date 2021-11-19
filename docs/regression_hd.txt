@@ -1,0 +1,54 @@
+# HIGH-DIMENSIONAL REGRESSION--------------------
+
+library(glmnet)
+library(hdi)
+
+# DATA GENERATION--------------------------------
+
+n = 200          # number of observations
+p = 2000         # number of variables
+s = 10           # number of variables with nonzero coefficients
+alpha = 0.05	# significance level
+
+set.seed(123)
+beta = c(runif(s,1,3),rep(0,p-s))		# true coefficients
+beta[1:s]				# nonzero coefficients
+X <- matrix(rnorm(n * p), n, p)		# design matrix
+y <- X %*% beta + rnorm(n, mean = 1)	# response
+varType <- rep("N",p)			
+varType[1:s] <- "S"
+colnames(X) <- paste0("x",1:p)
+
+# LASSO VARIABLE SELECTION----------------------
+
+fit <- cv.glmnet(X, y)					# lasso fit
+hatS <- which(coef(fit, s=fit$lambda.min)[-1] != 0)	# selected variables
+table(varType[hatS])					
+fitS <- lm(y ~ X[,hatS])					# lm fit on selected
+pvalS <- summary(fitS)$coef[-1,4]				# coefficients p-values 
+table(varType[hatS][pvalS <= alpha])
+
+# SINGLE SPLIT----------------------------------
+
+J <- as.logical(sample(rep(0:1, each=n/2)))
+I = !J
+fit <- cv.glmnet(X[J,], y[J])
+hatS <- which(coef(fit, s=fit$lambda.min)[-1]!=0)
+table(varType[hatS])
+XS <- X[I, hatS]
+fit <- lm(y[I]~XS)
+pval = rep(1,p)
+pval[hatS] = summary(fit)$coefficients[-1,4]
+table(varType[pval <= alpha])
+ptilde = p.adjust(pval[hatS],"bonf") <= alpha
+table(varType[hatS][ptilde])
+
+
+# MULTI SPLIT----------------------------------
+
+B = 10
+fit <- multi.split(x=X, y=y, B=B, fraction=0.5,
+		  model.selector = lasso.cv,	 
+		  ci = TRUE, ci.level = 1- alpha)
+fit
+confint(fit)[1:s]

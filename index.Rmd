@@ -1,0 +1,86 @@
+---
+title: "Statistical Learning, Module III"
+output: markdowntemplates::minimal
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Program
+
+**Conformal prediction**
+
+While improving prediction accuracy has been the focus of machine learning in recent years, this alone does not suffice for reliable decision-making. Deploying learning systems in consequential settings also requires calibrating and communicating the *uncertainty* of predictions. 
+We will introduce a recent line of work called distribution-free predictive inference (a.k.a. *conformal prediction*) that give prediction intervals with finite-sample statistical guarantees for any (possibly incorrectly specified) predictive model and any (unknown) underlying distribution of the data, ensuring reliable uncertainty quantification for predictions.
+
+[Course notes on conformal prediction](docs/conformal.pdf)
+
+<table>
+
+<tr>
+<td>*Topic*</td>
+<td>*R code*</td>
+</tr>
+
+<tr>
+<td>Marginal vs conditional coverage</td>
+<td>[coverage](docs/coverage.txt)</td>
+</tr>
+
+<tr>
+<td>Split conformal prediction</td>
+<td>[cp_split](docs/cp_split.txt)</td>
+</tr>
+
+</table>
+
+
+**Variable selection with statistical guarantees**
+
+In many fields of science, we observe a response variable together with a large number of potential explanatory variables, and we would like to be able to discover which predictors are important for the response. We will introduce a recent set of methods (*sample splitting*, *stability selection* and the *knockoff filter*) that allow to identify the truly important predictors with rigorous statistical guarantees.
+
+[Course notes on variable selection](docs/vs.pdf)
+
+<table>
+
+<tr>
+<td>*Topic*</td>
+<td>*R code*</td>
+</tr>
+
+<tr>
+<td>High-dimensional regression</td>
+<td>[regression_hd](docs/regression_hd.txt)</td>
+</tr>
+
+<tr>
+<td>Stability selection</td>
+<td>[stability](docs/stability.txt)</td>
+</tr>
+
+<tr>
+<td>Knockoffs filter</td>
+<td>[knockoffs](docs/knockoffs.txt)</td>
+</tr>
+
+</table>
+
+
+
+
+
+## Calendar
+
+|| N || Date || Hours || 
+|-|-|-|-|-|-|-|-|-|-|-|
+||  || ||  ||  || ||
+|| 1 || November 29, 2021 || 10:00 - 12:00, 14:00 - 16:00 (4 hours)   ||
+|| 2 || November 30, 2021 || 10:00 - 12:00, 14:00 - 16:00 (4 hours)   ||
+
+## Exam
+
+December 14, 2021, h 14:00
+
+

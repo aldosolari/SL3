@@ -1,0 +1,54 @@
+# STABILITY SELECTION-------------------------
+
+library(glmnet)
+library(stabs)
+
+# DATA GENERATION-----------------------------
+
+set.seed(123)
+n = 100
+p = 200
+s = 5
+X = matrix(runif(n*p), ncol=p)
+colnames(X) = paste0("X",1:p)
+beta = c(rep(2,s),rep(0,p-s))
+y = 2 + X %*% beta + rnorm(n)
+yX = data.frame(y,X)
+varType <- rep("N",p)
+varType[which(beta!=0)] <- "S"
+colnames(X) <- paste0("x", 1:p)
+
+# REGULARIZATION PATH--------------------------
+
+fit <- glmnet(X, y)
+plot(fit, xvar="lambda", col=(varType=="S")+1)
+l <- cv.glmnet(X, y)$lambda.min
+abline(v=log(l))
+
+# STABILITY PATH--------------------------------
+
+B = 100
+fit <- glmnet(X, y)
+SS <- array(NA, dim=c(B, p, length(fit$lambda)), dimnames=list(1:B, colnames(X), fit$lambda))
+Q <- matrix(NA, B, length(fit$lambda))
+for (i in 1:B) {
+  ind <- as.logical(sample(rep(0:1, each=n/2)))
+  fit.i <- glmnet(X[ind,], y[ind], lambda=fit$lambda)
+  SS[i,,] <- as.matrix(coef(fit.i)[-1,]!=0)
+}
+S <- apply(SS, 2:3, mean)
+l <- fit$lambda
+col <- rep("gray", p)
+col[which(beta!=0)]<-"red"
+matplot(l, t(S), type="l", lty=1, xlim=rev(range(l)), col=col, lwd=2, las=1, bty="n", xlab=expression(lambda), ylab="Estimated probability")
+abline(h=0.6)
+
+
+# STABS R PACKAGE---------------------------------
+
+fit <- stabsel(x = X, y = y, 
+               fitfun = glmnet.lasso, 
+               q = 20,
+               cutoff = 0.6) 
+plot(fit)
+fit

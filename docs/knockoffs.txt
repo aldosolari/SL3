@@ -1,0 +1,60 @@
+# KNOCKOFFS FILTER-----------------------------------
+
+library(knockoff)
+
+# DATA GENERATION------------------------------------
+
+n = 1000          # number of observations
+p = 200           # number of variables
+s = 30            # number of variables with nonzero coefficients
+amplitude = 3.5   # signal amplitude (for noise level = 1)
+mu = rep(0,p)
+Sigma = diag(p)
+set.seed(123)
+X = matrix(rnorm(n*p),n) 
+nonzero = sample(p, s)
+beta = amplitude * (1:p %in% nonzero) 
+y = X %*% beta + rnorm(n)
+alpha = 0.1
+
+
+# FIXED-X KNOCKOFF-----------------------------------
+
+res = knockoff.filter(X, y, 
+		     knockoffs = create.fixed, 
+		     statistic = stat.glmnet_lambdasmax, 
+		     fdr = alpha)
+print(res)
+fdp = function(selected) sum(beta[selected] == 0) / max(1, length(selected))
+fdp(res$selected)
+
+# MODEL-X KNOCKOFF------------------------------------
+
+n = 100          # number of observations
+p = 200          # number of variables
+s = 15           # number of variables with nonzero coefficients
+amplitude = 3.5   # signal amplitude (for noise level = 1)
+mu = rep(0,p)
+Sigma = diag(p)
+set.seed(123)
+X = matrix(rnorm(n*p),n) 
+nonzero = sample(p, s)
+beta = amplitude * (1:p %in% nonzero) 
+y = X %*% beta + rnorm(n)
+
+res = knockoff.filter(X, y, fdr = alpha)
+res
+fdp = function(selected) sum(beta[selected] == 0) / max(1, length(selected))
+fdp(res$selected)
+
+gaussian_knockoffs = function(X) create.gaussian(X, mu, Sigma)
+res = knockoff.filter(X, y, 
+		     knockoffs=gaussian_knockoffs, 
+		     fdr = alpha)
+res
+fdp(res$selected)
+
+
+
+
+

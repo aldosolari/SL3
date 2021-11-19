@@ -1,0 +1,128 @@
+# MARGINAL VS CONDITIONAL COVERAGE----------------------------
+
+library(conformalInference)
+
+# DATA GENERATION---------------------------------------------
+
+alpha = 0.1
+
+n = 100
+x = runif(n,-5,5)
+y = 1/4 * (x+4) * (x+1) * (x-2) + rnorm(n, mean = 1)
+plot(x,y)
+
+n0 = 1000
+x0 = runif(n0,-5,5)
+y0 = 1/4 * (x0+4) * (x0+1) * (x0-2) + rnorm(n0, mean = 1)
+o = order(x0)
+
+# POLYNOMIAL REGRESSION----------------------------------------
+
+res_lm = predict(lm(y ~ poly(x,degree=3)), 
+          newdata=data.frame(x=x0), 
+          interval = "prediction",
+          level = 1-alpha)
+
+plot(c(), c(), xlab="X", ylab="Y", xlim=range(x0),
+     ylim=range(c(y0,res_lm[,2],res_lm[,3])), col="white")
+polygon(c(x0[o],rev(x0[o])), c(res_lm[o,2],rev(res_lm[o,3])),
+        col="pink", border=NA)
+lines(x0[o], res_lm[o,1], lwd=2, col="red")
+points(x, y)
+
+# CONFORMAL PREDICTION REGRESSION LINE-----------------------
+
+funs = lm.funs()
+
+res_split = conformal.pred.split(x, y, x0, alpha=alpha,
+			 train.fun=funs$train, 
+			 predict.fun=funs$predict)
+
+plot(c(), c(), xlab="X", ylab="Y", xlim=range(x0),
+     ylim=range(c(y0,res_split$lo,res_split$up)), col="white")
+polygon(c(x0[o],rev(x0[o])), c(res_split$lo[o],rev(res_split$up[o])),
+        col="pink", border=NA)
+lines(x0[o], res_split$pred[o], lwd=2, col="red")
+points(x, y)
+
+
+# CONFORMAL PREDICTION REGRESSION TREE-----------------------
+
+funs = rf.funs(ntree = 1)
+
+res_split = conformal.pred.split(x, y, x0, alpha=alpha,
+			 train.fun=funs$train, 
+			 predict.fun=funs$predict)
+
+plot(c(), c(), xlab="X", ylab="Y", xlim=range(x0),
+     ylim=range(c(y0,res_split$lo,res_split$up)), col="white")
+polygon(c(x0[o],rev(x0[o])), c(res_split$lo[o],rev(res_split$up[o])),
+        col="pink", border=NA)
+lines(x0[o], res_split$pred[o], lwd=2, col="red")
+points(x, y)
+
+
+# MARGINAL COVERAGE---------------------------------------------
+
+n0 = 50
+n0 = 1
+B = 1000
+cov_lm = cov_split = vector()
+set.seed(123)
+
+for (b in 1:B){
+x = runif(n,-5,5)
+y = 1/4 * (x+4) * (x+1) * (x-2) + rnorm(n, mean = 1)
+
+x0 = runif(n0,-5,5)
+y0 = 1/4 * (x0+4) * (x0+1) * (x0-2) + rnorm(n0, mean = 1)
+
+
+res_lm <- predict(lm(y ~ poly(x,degree=3)), 
+          newdata=data.frame(x=x0), 
+          interval = "prediction",
+          level = 1-alpha)[,-1]
+cov_lm[b] = res_lm[1] <= y0 & y0 <= res_lm[2]
+
+res_split = conformal.pred.split(x, y, x0, alpha,
+			 train.fun=funs$train, 
+			 predict.fun=funs$predict)
+cov_split[b] = res_split$lo <= y0 & y0 <= res_split$up
+}
+
+mean(cov_lm)
+mean(cov_split)
+
+
+# CONDITIONAL COVERAGE---------------------------------------------
+
+
+n0 = 50
+n0 = 1
+B = 1000
+cov_lm = cov_split = vector()
+set.seed(123)
+
+for (b in 1:B){
+x = runif(n,-5,5)
+y = 1/4 * (x+4) * (x+1) * (x-2) + rnorm(n, mean = 1)
+
+x0 = 4.5
+y0 = 1/4 * (x0+4) * (x0+1) * (x0-2) + rnorm(n0, mean = 1)
+
+
+res_lm <- predict(lm(y ~ poly(x,degree=3)), 
+          newdata=data.frame(x=x0), 
+          interval = "prediction",
+          level = 1-alpha)[,-1]
+cov_lm[b] = res_lm[1] <= y0 & y0 <= res_lm[2]
+
+res_split = conformal.pred.split(x, y, x0, alpha,
+			 train.fun=funs$train, 
+			 predict.fun=funs$predict)
+cov_split[b] = res_split$lo <= y0 & y0 <= res_split$up
+}
+
+mean(cov_lm)
+mean(cov_split)
+
