@@ -1,5 +1,5 @@
 ---
-title: "Statistical Learning, Module III"
+title: "Statistical Learning - module III"
 output: markdowntemplates::minimal
 ---
 
@@ -30,8 +30,13 @@ We will introduce a recent line of work called distribution-free predictive infe
 </tr>
 
 <tr>
-<td>Split conformal prediction</td>
-<td>[cp_split](docs/cp_split.txt)</td>
+<td>Heteroskedastic data</td>
+<td>[heteroskedastic](docs/heteroskedastic.txt)</td>
+</tr>
+
+<tr>
+<td>Split conformal prediction function</td>
+<td>[cp.split](docs/cp.split.txt)</td>
 </tr>
 
 </table>

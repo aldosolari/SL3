@@ -1,9 +1,9 @@
-cp_split = function(x, y, x0, m,
+cp.split = function(x, y, x0, m,
                     alpha=0.1, 
                     gamma = alpha/2, 
                     split=NULL, seed=NULL) {
   
-  library(quantregForest)
+  require(quantregForest)
   
   # Set up data
   x = as.matrix(x)
@@ -44,3 +44,5 @@ cp_split = function(x, y, x0, m,
   
   return(list(lo=lo,up=up,r=r))
 }
+
+

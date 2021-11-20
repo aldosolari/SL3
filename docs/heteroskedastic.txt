@@ -1,0 +1,56 @@
+# HETEROSKEDASTIC DATA ----------------------------------------
+# code from conformalInference R package
+
+library(conformalInference)
+
+# DATA GENERATION----------------------------------------------
+
+set.seed(123)
+n = 1000
+x = runif(n,0,2*pi)
+y = sin(x) + x*pi/30*rnorm(n)
+
+n0 = 5000
+x0 = seq(0,2*pi,length=n0)
+y0 = sin(x0) + x0*pi/30*rnorm(n0)
+o = order(x0)
+
+# CONFORMAL PREDICTION WITH RESIDUALS-------------------------------------
+
+funs = smooth.spline.funs(cv=TRUE)
+
+out.split = conformal.pred.split(x, y, x0, alpha=0.1, seed=10,
+  train.fun=funs$train, predict.fun=funs$predict)
+out.split.cov = out.split$lo <= y0 & y0 <= out.split$up
+out.split.len = out.split$up - out.split$lo
+
+
+plot(c(), c(), xlab="X", ylab="Y", xlim=range(x0),
+     ylim=range(c(y0,out.split$lo,out.split$up)), col="white",     
+     main=paste0("Split Conformal Prediction Intervals\n",
+       sprintf("Coverage: %0.3f, Average Length: %0.3f",
+               mean(out.split.cov),mean(out.split.len))))
+polygon(c(x0[o],rev(x0[o])), c(out.split$lo[o],rev(out.split$up[o])),
+        col="pink", border=NA)
+lines(x0[o], out.split$pred[o], lwd=2, col="red")
+points(x, y)
+
+
+# CONFORMAL PREDICTION WITH WEIGHTED RESIDUALS-------------------------------
+
+out.split.local = conformal.pred.split(x, y, x0, alpha=0.1, seed=10,
+  train.fun=funs$train, predict.fun=funs$predict,
+  mad.train.fun=funs$train, mad.predict.fun=funs$predict)
+out.split.local.cov = out.split.local$lo <= y0 & y0 <= out.split.local$up
+out.split.local.len = out.split.local$up - out.split.local$lo
+
+plot(c(), c(), xlab="X", ylab="Y", xlim=range(x0),
+     ylim=range(c(y0,out.split.local$lo,out.split.local$up)), col="white",     
+     main=paste0("Locally-Weighted Split Conformal\n",
+       sprintf("Coverage: %0.3f, Average Length: %0.3f",
+               mean(out.split.local.cov),mean(out.split.local.len))))
+polygon(c(x0[o],rev(x0[o])),
+        c(out.split.local$lo[o],rev(out.split.local$up[o])),
+        col="lightblue", border=NA)
+lines(x0[o], out.split.local$pred[o], lwd=2, col="blue")
+points(x, y)
