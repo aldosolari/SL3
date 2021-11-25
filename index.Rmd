@@ -73,9 +73,6 @@ In many fields of science, we observe a response variable together with a large 
 </table>
 
 
-
-
-
 ## Calendar
 
 || N || Date || Hours || 
@@ -87,5 +84,22 @@ In many fields of science, we observe a response variable together with a large 
 ## Exam
 
 December 14, 2021, h 14:00
+
+### Data analysis
+
+* Prediction intervals: This exercise provides both a training set $(x_i,y_i)$, $i=1,\ldots,n$ (test.txt) and a test set $x^*_i$, $i=1,\ldots,m$ (train.txt). The goal is to provide a prediction interval $[L_i,U_i]$ for each (unknown) $y^*_i$ of the test set. Your prediction intervals will be evaluated on both coverage (target: 90%) and average length.
+
+
+   * Data set [PI_LOW_train](docs/PI_LOW_train.txt) and [PI_LOW_test](docs/PI_LOW_test.txt) low-dimensional (train $n=200$, test $m=1000$ and dimension $d=10$)
+   * Data set [PI_HIGH_train](docs/PI_HIGH_train.txt) e [PI_HIGH_test](docs/data/PI_HIGH_test.txt) high-dimensional (train $n=100$, test $m=1000$ and dimension $d=100$)
+   * Submission example: [TXT](docs/data/2575_PRED_LOW.txt), [RMD](docs/data/2575_PI_LOW.Rmd) and [PDF](docs/data/2575_PI_LOW.pdf). 
+
+* The goal is to select the ``relevant'' predictors for each dataset. Data were generated as $y = X\beta + \varepsilon$
+with $S = \{j: \beta_j \neq 0\}$ and $N = \{j: \beta_j = 0\}$. Your selections $\hat{S}$ will be evaluated on 
+both True Positive Rate and False Discovery Rate.
+   * Data set [VS_LOW](docs/data/VS_LOW.txt) a bassa dimensionalità ($n=40$ e $d= 19$)
+   * Data set [VS_HIGH](docs/data/VS_HIGH.txt) ad elevata dimensionalità ($n=1000$ e $d= 1000$)
+   * Submission example: [TXT](docs/data/2575_VS_HIGH.txt), [RMD](docs/data/2575_VS_HIGH.Rmd) and [PDF](docs/data/2575_VS_HIGH.pdf).
+ 
 
 
