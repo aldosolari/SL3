@@ -1,0 +1,35 @@
+---
+title: "Prediction intervals"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Rules
+
+1. You can use any programming language, but the results must be reproducible. 
+
+2. By the deadline, you should send me a **.txt file** (named "[badge number]\_[dataset name].txt") containing the prediction intervals in the format
+\begin{verbatim}
+5.646867 14.98694
+7.825673 17.05896
+...
+\end{verbatim}
+and a **.pdf file** (named "[badge number]\_[dataset name]\_SUPPL.pdf") containing the code to reproduce your results.
+
+3. Deadline: December 10, 2021 h 17:00
+
+# Supplementary code to reproduce the results
+
+```{r}
+PATH <- "https://raw.githubusercontent.com/aldosolari/SL3/main/docs/"
+train = read.csv2(paste0(PATH,"PI_LOW_train.txt"))
+test = read.csv2(paste0(PATH,"PI_LOW_test.txt"))
+model = lm( y~. , train )
+PI = predict(model, newdata = test, interval = "prediction")[,-1]
+head(PI)
+# write.table(file="2575_PI_LOW.txt", PI, row.names = FALSE, col.names = FALSE)
+```
+

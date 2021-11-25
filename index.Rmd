@@ -92,7 +92,7 @@ December 14, 2021, h 14:00
 
    * Data set [PI_LOW_train](docs/PI_LOW_train.txt) and [PI_LOW_test](docs/PI_LOW_test.txt) low-dimensional (train $n=200$, test $m=1000$ and dimension $d=10$)
    * Data set [PI_HIGH_train](docs/PI_HIGH_train.txt) e [PI_HIGH_test](docs/data/PI_HIGH_test.txt) high-dimensional (train $n=100$, test $m=1000$ and dimension $d=100$)
-   * Submission example: [TXT](docs/data/2575_PRED_LOW.txt), [RMD](docs/data/2575_PI_LOW.Rmd) and [PDF](docs/data/2575_PI_LOW.pdf). 
+   * Submission example: [TXT](docs/data/2575_PI_LOW.txt) and [PDF](docs/data/2575_PI_LOW_SUPPL.pdf). 
 
 * The goal is to select the ``relevant'' predictors for each dataset. Data were generated as $y = X\beta + \varepsilon$
 with $S = \{j: \beta_j \neq 0\}$ and $N = \{j: \beta_j = 0\}$. Your selections $\hat{S}$ will be evaluated on 
