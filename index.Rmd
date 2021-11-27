@@ -94,11 +94,10 @@ provided that the target 90% coverage is achieved, i.e. $\bar{c}=(1/m)\sum_{i=1}
    * Data set [PI_HIGH_train](docs/PI_HIGH_train.txt) e [PI_HIGH_test](docs/PI_HIGH_test.txt) high-dimensional (train $n=100$, test $m=2000$ and dimension $d=200$)
    * Submission example: [TXT](docs/2575_PI_LOW.txt) and [PDF](docs/2575_PI_LOW_SUPPL.pdf). 
 
-* **Variable selection**: the goal is to select the ``relevant'' predictors for each dataset. Data were generated as $y = X\beta + \varepsilon$
-with $S = \{j: \beta_j \neq 0\}$ and $N = \{j: \beta_j = 0\}$. Your selection $\hat{S}$ will be evaluated by the Matthews correlation coefficient.
+* **Variable selection**: the goal is to select the ``relevant'' predictors. Your selection will be evaluated by the Matthews correlation coefficient.
 
-   * Data set [VS](docs/data/VS.txt) with $n=40$ and $d= 19$
-   * Submission example: [TXT](docs/data/2575_VS.txt) and [PDF](docs/data/2575_VS_SUPPL.pdf).
+   * Data set [VS](docs/VS.csv) with $n=767$ and $d=201$
+   * Submission example: [TXT](docs/2575_VS.txt) and [PDF](docs/2575_VS_SUPPL.pdf).
  
 
 
