@@ -113,6 +113,7 @@ Knockoffs filter
 <th></th>
 <th>Hours</th>
 <th></th>
+<th>Room</th>
 <th></th>
 <th></th>
 <th></th>
@@ -121,6 +122,7 @@ Knockoffs filter
 </thead>
 <tbody>
 <tr class="odd">
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -141,6 +143,7 @@ Knockoffs filter
 <td></td>
 <td>10:00 - 12:00, 14:00 - 16:00 (4 hours)</td>
 <td></td>
+<td>U7-2104</td>
 <td></td>
 <td></td>
 <td></td>
@@ -154,6 +157,7 @@ Knockoffs filter
 <td></td>
 <td>10:00 - 12:00, 14:00 - 16:00 (4 hours)</td>
 <td></td>
+<td>U7-2062</td>
 <td></td>
 <td></td>
 <td></td>
@@ -164,21 +168,20 @@ Knockoffs filter
 </div>
 <div id="exam" class="section level2">
 <h2>Exam</h2>
-<p>December 14, 2021, h 14:00</p>
+<p>The exam consists in performing statistical analysis on three sets of data and presenting the results. Any programming language is allowed, but the results must be reproducible. The deadline for the submission (via email) is December 10, 2021, h 17:00. Results will be discussed on December 14, 2021, h 14:00 room U7-2104.</p>
 <div id="data-analysis" class="section level3">
 <h3>Data analysis</h3>
 <ul>
-<li><p><strong>Prediction intervals</strong>: This exercise provides both a training set <span class="math inline">\((x_i,y_i)\)</span>, <span class="math inline">\(i=1,\ldots,n\)</span> (test.txt) and a test set <span class="math inline">\(x^*_i\)</span>, <span class="math inline">\(i=1,\ldots,m\)</span> (train.txt). The goal is to provide a prediction interval <span class="math inline">\([L_i,U_i]\)</span> for each (unknown) <span class="math inline">\(y^*_i\)</span> of the test set. Your prediction intervals will be evaluated on both coverage (target: 90%) and average length.</p>
+<li><p><strong>Prediction intervals</strong>: This exercise provides both a training set <span class="math inline">\((x_i,y_i)\)</span>, <span class="math inline">\(i=1,\ldots,n\)</span> (test.txt) and a test set <span class="math inline">\(x^*_i\)</span>, <span class="math inline">\(i=1,\ldots,m\)</span> (train.txt). The goal is to provide a prediction interval <span class="math inline">\([l_i,u_i]\)</span> for each (unknown) <span class="math inline">\(y^*_i\)</span> of the test set. Your prediction intervals will be evaluated by the average width <span class="math inline">\(\bar{w} = (1/m)\sum_{i=1}^{m}(u_i - l_i)\)</span> provided that the target 90% coverage is achieved, i.e. <span class="math inline">\(\bar{c}=(1/m)\sum_{i=1}^{m}1\{y^*_i \in [l_i,u_i] \} \geq .9\)</span>. If <span class="math inline">\(\bar{c}&lt;.9\)</span>, then your intervals will be adjusted by <span class="math inline">\([l_i-a,u_i + a]\)</span> with <span class="math inline">\(a\)</span> the smallest value such that <span class="math inline">\((1/m)\sum_{i=1}^{m}1\{y^*_i \in [l_i-a,u_i+a] \} \geq .9\)</span>. In this case, the average width will be adjusted by <span class="math inline">\(\bar{w} + 4a\)</span>.</p>
 <ul>
 <li>Data set <a href="docs/PI_LOW_train.txt">PI_LOW_train</a> and <a href="docs/PI_LOW_test.txt">PI_LOW_test</a> low-dimensional (train <span class="math inline">\(n=200\)</span>, test <span class="math inline">\(m=2000\)</span> and dimension <span class="math inline">\(d=10\)</span>)</li>
 <li>Data set <a href="docs/PI_HIGH_train.txt">PI_HIGH_train</a> e <a href="docs/PI_HIGH_test.txt">PI_HIGH_test</a> high-dimensional (train <span class="math inline">\(n=100\)</span>, test <span class="math inline">\(m=2000\)</span> and dimension <span class="math inline">\(d=200\)</span>)</li>
 <li>Submission example: <a href="docs/2575_PI_LOW.txt">TXT</a> and <a href="docs/2575_PI_LOW_SUPPL.pdf">PDF</a>.</li>
 </ul></li>
-<li><p><strong>Variable selection</strong>: the goal is to select the ``relevant’’ predictors for each dataset. Data were generated as <span class="math inline">\(y = X\beta + \varepsilon\)</span> with <span class="math inline">\(S = \{j: \beta_j \neq 0\}\)</span> and <span class="math inline">\(N = \{j: \beta_j = 0\}\)</span>. Your selections <span class="math inline">\(\hat{S}\)</span> will be evaluated on both True Positive Rate and False Discovery Rate.</p>
+<li><p><strong>Variable selection</strong>: the goal is to select the ``relevant’’ predictors for each dataset. Data were generated as <span class="math inline">\(y = X\beta + \varepsilon\)</span> with <span class="math inline">\(S = \{j: \beta_j \neq 0\}\)</span> and <span class="math inline">\(N = \{j: \beta_j = 0\}\)</span>. Your selection <span class="math inline">\(\hat{S}\)</span> will be evaluated by the Matthews correlation coefficient.</p>
 <ul>
-<li>Data set <a href="docs/data/VS_LOW.txt">VS_LOW</a> a bassa dimensionalità (<span class="math inline">\(n=40\)</span> e <span class="math inline">\(d= 19\)</span>)</li>
-<li>Data set <a href="docs/data/VS_HIGH.txt">VS_HIGH</a> ad elevata dimensionalità (<span class="math inline">\(n=1000\)</span> e <span class="math inline">\(d= 1000\)</span>)</li>
-<li>Submission example: <a href="docs/data/2575_VS_HIGH.txt">TXT</a>, <a href="docs/data/2575_VS_HIGH.Rmd">RMD</a> and <a href="docs/data/2575_VS_HIGH.pdf">PDF</a>.</li>
+<li>Data set <a href="docs/data/VS.txt">VS</a> with <span class="math inline">\(n=40\)</span> and <span class="math inline">\(d= 19\)</span></li>
+<li>Submission example: <a href="docs/data/2575_VS.txt">TXT</a> and <a href="docs/data/2575_VS_SUPPL.pdf">PDF</a>.</li>
 </ul></li>
 </ul>
 </div>

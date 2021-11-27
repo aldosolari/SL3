@@ -75,31 +75,30 @@ In many fields of science, we observe a response variable together with a large 
 
 ## Calendar
 
-|| N || Date || Hours || 
-|-|-|-|-|-|-|-|-|-|-|-|
+|| N || Date || Hours || Room ||
+|-|-|-|-|-|-|-|-|-|-|-|-|
 ||  || ||  ||  || ||
-|| 1 || November 29, 2021 || 10:00 - 12:00, 14:00 - 16:00 (4 hours)   ||
-|| 2 || November 30, 2021 || 10:00 - 12:00, 14:00 - 16:00 (4 hours)   ||
+|| 1 || November 29, 2021 || 10:00 - 12:00, 14:00 - 16:00 (4 hours)   || U7-2104 ||
+|| 2 || November 30, 2021 || 10:00 - 12:00, 14:00 - 16:00 (4 hours)   || U7-2062 ||
 
 ## Exam
 
-December 14, 2021, h 14:00
+The exam consists in performing statistical analysis on three sets of data and presenting the results. Any programming language is allowed, but the results must be reproducible. The deadline for the submission (via email) is December 10, 2021, h 17:00. Results will be discussed on December 14, 2021, h 14:00 room U7-2104.
 
 ### Data analysis
 
-* **Prediction intervals**: This exercise provides both a training set $(x_i,y_i)$, $i=1,\ldots,n$ (test.txt) and a test set $x^*_i$, $i=1,\ldots,m$ (train.txt). The goal is to provide a prediction interval $[L_i,U_i]$ for each (unknown) $y^*_i$ of the test set. Your prediction intervals will be evaluated on both coverage (target: 90%) and average length.
-
+* **Prediction intervals**: This exercise provides both a training set $(x_i,y_i)$, $i=1,\ldots,n$ (test.txt) and a test set $x^*_i$, $i=1,\ldots,m$ (train.txt). The goal is to provide a prediction interval $[l_i,u_i]$ for each (unknown) $y^*_i$ of the test set. Your prediction intervals will be evaluated by the average width $\bar{w} = (1/m)\sum_{i=1}^{m}(u_i - l_i)$
+provided that the target 90% coverage is achieved, i.e. $\bar{c}=(1/m)\sum_{i=1}^{m}1\{y^*_i \in [l_i,u_i] \} \geq .9$. If $\bar{c}<.9$, then your intervals will be adjusted by $[l_i-a,u_i + a]$ with $a$ the smallest value such that $(1/m)\sum_{i=1}^{m}1\{y^*_i \in [l_i-a,u_i+a] \} \geq .9$. In this case, the average width will be adjusted by $\bar{w} + 4a$. 
 
    * Data set [PI_LOW_train](docs/PI_LOW_train.txt) and [PI_LOW_test](docs/PI_LOW_test.txt) low-dimensional (train $n=200$, test $m=2000$ and dimension $d=10$)
    * Data set [PI_HIGH_train](docs/PI_HIGH_train.txt) e [PI_HIGH_test](docs/PI_HIGH_test.txt) high-dimensional (train $n=100$, test $m=2000$ and dimension $d=200$)
    * Submission example: [TXT](docs/2575_PI_LOW.txt) and [PDF](docs/2575_PI_LOW_SUPPL.pdf). 
 
 * **Variable selection**: the goal is to select the ``relevant'' predictors for each dataset. Data were generated as $y = X\beta + \varepsilon$
-with $S = \{j: \beta_j \neq 0\}$ and $N = \{j: \beta_j = 0\}$. Your selections $\hat{S}$ will be evaluated on 
-both True Positive Rate and False Discovery Rate.
-   * Data set [VS_LOW](docs/data/VS_LOW.txt) a bassa dimensionalità ($n=40$ e $d= 19$)
-   * Data set [VS_HIGH](docs/data/VS_HIGH.txt) ad elevata dimensionalità ($n=1000$ e $d= 1000$)
-   * Submission example: [TXT](docs/data/2575_VS_HIGH.txt), [RMD](docs/data/2575_VS_HIGH.Rmd) and [PDF](docs/data/2575_VS_HIGH.pdf).
+with $S = \{j: \beta_j \neq 0\}$ and $N = \{j: \beta_j = 0\}$. Your selection $\hat{S}$ will be evaluated by the Matthews correlation coefficient.
+
+   * Data set [VS](docs/data/VS.txt) with $n=40$ and $d= 19$
+   * Submission example: [TXT](docs/data/2575_VS.txt) and [PDF](docs/data/2575_VS_SUPPL.pdf).
  
 
 
