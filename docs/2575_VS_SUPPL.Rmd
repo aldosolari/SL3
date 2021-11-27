@@ -1,0 +1,32 @@
+---
+title: "Variable selection"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Rules
+
+1. You can use any programming language, but the results must be reproducible. 
+
+2. By the deadline, you should send me a **.txt file** (named "[badge number]\_VS.txt") containing the selected variables in the format
+\begin{verbatim}
+1  2  8 10 11 12 ...
+\end{verbatim}
+and a **.pdf file** (named "[badge number]\_VS\_SUPPL.pdf") containing the code to reproduce your results.
+
+3. Deadline: December 10, 2021 h 17:00
+
+# Supplementary code to reproduce the results
+
+```{r}
+PATH <- "https://raw.githubusercontent.com/aldosolari/SL3/main/docs/"
+yX = read.csv2(paste0(PATH,"VS.csv"))
+model = lm( y ~ . , yX )
+S = as.numeric(which(summary(model)$coefficients[-1,4] < 0.1))
+head(S)
+# write.table(file="2575_PI_LOW.txt", PI, row.names = FALSE, col.names = FALSE)
+```
+
