@@ -110,7 +110,8 @@ points(x, y ,col="lightgray")
 
 # MARGINAL COVERAGE---------------------------------------------
 
-n0 = 9
+alpha = 0.1
+n = 19
 n0 = 1
 B = 2000
 funs = lm.funs()
@@ -143,9 +144,6 @@ mean(cov_cp)
 
 # CONDITIONAL COVERAGE---------------------------------------------
 
-n0 = 9
-n0 = 1
-B = 2000
 funs = lm.funs()
 cov_lm = cov_cp = vector()
 set.seed(123)
