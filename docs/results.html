@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Statistical Learning III</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Aldo Solari" />
+    <link href="results_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="results_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="results_files/remark-css-0.0.1/rutgers-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Statistical Learning III
+## Data Analysis
+### Aldo Solari
+
+---
+
+
+
+
+
+# PI LOW
+
+Simulated data as described in Friedman (1991) and Breiman (1996). 
+
+Inputs are 10 independent variables uniformly distributed on the interval [0,1], only 5 out of these 10 are actually used. 
+
+Outputs are created according to the formula
+
+`$$y = 10 \sin(π x_1 x_2) + 20 (x_3 - 0.5)^2 + 10 x_4 + 5 x_5 + e$$`
+
+where `\(e\)` is `\(N(0,1)\)`.
+
+---
+
+
+```
+                 id coverage     width  widthadj
+1   5406_PI_LOW.txt   0.9625  8.456198  8.456198
+2   2575_PI_LOW.txt   0.9165  9.278709  9.278709
+3  79084_PI_LOW.txt   0.9235  9.420995  9.420995
+4 868800_PI_LOW.txt   0.9345  9.938371  9.938371
+5 718637_PI_LOW.txt   0.8740  9.629149 10.831554
+6 868623_PI_LOW.txt   0.9500 10.887844 10.887844
+7 868624_PI_LOW.txt   0.9590 11.380740 11.380740
+```
+
+---
+
+# PI HIGH
+
+Simulated data as described in Sesia et al.
+
+`\(X \sim U([0,1]^d)\)` and
+`$$Y = f(\beta' X) + \epsilon \sqrt{1+(\beta'X)^2}$$`
+where `\(f(x) = 2\sin(\pi x)\)`, `\(\beta' = (1,1,1,1,1,0,\ldots,0)\)` and `\(\epsilon\)` is independent standard Gaussian noise.
+
+The expected width of the oracle prediction bands is `\(\approx 8.91\)`
+
+---
+
+
+```
+                  id coverage    width widthadj
+1 868623_PI_HIGH.txt   0.9165 11.82065 11.82065
+2   5406_PI_HIGH.txt   0.9375 13.20158 13.20158
+3   2575_PI_HIGH.txt   0.8555 10.74264 13.22761
+4 718637_PI_HIGH.txt   0.8575 11.00725 13.33189
+5 868800_PI_HIGH.txt   0.9420 13.42192 13.42192
+6 868624_PI_HIGH.txt   0.9640 14.38157 14.38157
+7  79084_PI_HIGH.txt   0.9705 14.64603 14.64603
+```
+
+---
+
+# VS
+
+Data from Stanford HIV Drug Resistance Database
+
+96 relevant variables
+
+---
+
+
+```
+             id SIZE       FDR       TDP       MCC
+1 718637_VS.txt   26 0.0000000 0.2708333 0.4031129
+2 868624_VS.txt   26 0.0000000 0.2708333 0.4031129
+3 868800_VS.txt   21 0.0000000 0.2187500 0.3572173
+4   2575_VS.txt   59 0.2881356 0.4375000 0.3022956
+5   5406_VS.txt   15 0.0000000 0.1562500 0.2969944
+6  79084_VS.txt   14 0.0000000 0.1458333 0.2861556
+7 868623_VS.txt   11 0.0000000 0.1145833 0.2516394
+```
+
+&lt;!-- # SCORE --&gt;
+
+&lt;!-- ```{r, echo=FALSE} --&gt;
+&lt;!-- res$tot = round( ( (A+B+C) /3 ) * 50 )  --&gt;
+&lt;!-- res %&gt;% select(id,tot) %&gt;% arrange(desc(tot)) --&gt;
+&lt;!-- ``` --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

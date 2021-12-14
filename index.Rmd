@@ -87,6 +87,8 @@ The exam consists in performing statistical analysis on three sets of data and p
 
 ### Data analysis
 
+[Results](docs/results.html)
+
 * **Prediction intervals**: This exercise provides both a training set $(x_i,y_i)$, $i=1,\ldots,n$ (test.txt) and a test set $x^*_i$, $i=1,\ldots,m$ (train.txt). The goal is to provide a prediction interval $[l_i,u_i]$ for each (unknown) $y^*_i$ of the test set. Your prediction intervals will be evaluated by the average width $\bar{w} = (1/m)\sum_{i=1}^{m}(u_i - l_i)$
 provided that the target 90% coverage is achieved, i.e. $\bar{c}=(1/m)\sum_{i=1}^{m}1\{y^*_i \in [l_i,u_i] \} \geq .9$. If $\bar{c}<.9$, then your intervals will be adjusted by $[l_i-a,u_i + a]$ with $a$ the smallest value such that $(1/m)\sum_{i=1}^{m}1\{y^*_i \in [l_i-a,u_i+a] \} \geq .9$. In this case, the average width will be adjusted by $\bar{w} + 4a$. 
 
@@ -99,5 +101,6 @@ provided that the target 90% coverage is achieved, i.e. $\bar{c}=(1/m)\sum_{i=1}
    * Data set [VS](docs/VS.csv) with $n=767$ and $d=201$
    * Submission example: [TXT](docs/2575_VS.txt) and [PDF](docs/2575_VS_SUPPL.pdf).
  
+
 
 

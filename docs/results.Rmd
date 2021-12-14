@@ -1,0 +1,141 @@
+---
+title: "Statistical Learning III"
+subtitle: "Data Analysis"
+author: Aldo Solari
+output:
+  xaringan::moon_reader:
+    css: [default, default, rutgers-fonts]
+---
+
+```{r startup, include = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo=T, 
+                      eval=T, 
+                      message=F, 
+                      warning=F, 
+                      error=F, 
+                      comment=NA)
+```
+
+
+# PI LOW
+
+Simulated data as described in Friedman (1991) and Breiman (1996). 
+
+Inputs are 10 independent variables uniformly distributed on the interval [0,1], only 5 out of these 10 are actually used. 
+
+Outputs are created according to the formula
+
+$$y = 10 \sin(π x_1 x_2) + 20 (x_3 - 0.5)^2 + 10 x_4 + 5 x_5 + e$$
+
+where $e$ is $N(0,1)$.
+
+---
+
+```{r, echo=FALSE}
+library(dplyr)
+library(mccr)
+
+PATH = "/Volumes/GoogleDrive/My Drive/PHDECOSTAT/XXXIV_CYCLE/SL3/Exam/"
+y0 = read.csv2(paste0(PATH,"TRUE/PI_LOW_y0.txt"), header = T)$y0
+consegna = list.files(paste0(PATH,"PI_LOW"))
+
+coverage <- vector()
+width <- vector()
+widthadj <- vector()
+for (i in 1:length(consegna)){
+  TXT = consegna[i]
+  out = read.table(paste0(PATH,"PI_LOW/",TXT))
+  coverage[i] = mean(out$V1 <= y0 & y0 <= out$V2)
+  grid = seq(0,10,length.out = 500)
+  C = grid[which.max(sapply(grid, function(c) mean(out$V1 - c <= y0 & y0 <= out$V2 + c) ) >=.9 )]
+  width[i] = mean(out$V2 - out$V1)
+  widthadj[i] = width[i] + 4*C
+}
+res = data.frame(id=consegna, coverage, width, widthadj)
+#res$score = round( ( res$widthadj - max(res$widthadj) ) / ( min(res$widthadj) - max(res$widthadj)  ), 2)
+res %>% arrange( widthadj)
+
+#A = res$score
+```
+
+---
+
+# PI HIGH
+
+Simulated data as described in Sesia et al.
+
+$X \sim U([0,1]^d)$ and
+$$Y = f(\beta' X) + \epsilon \sqrt{1+(\beta'X)^2}$$
+where $f(x) = 2\sin(\pi x)$, $\beta' = (1,1,1,1,1,0,\ldots,0)$ and $\epsilon$ is independent standard Gaussian noise.
+
+The expected width of the oracle prediction bands is $\approx 8.91$
+
+---
+
+```{r, echo=FALSE}
+PATH = "/Volumes/GoogleDrive/My Drive/PHDECOSTAT/XXXIV_CYCLE/SL3/Exam/"
+y0 = read.csv2(paste0(PATH,"TRUE/PI_HIGH_y0.txt"), header = T)$V1
+consegna = list.files(paste0(PATH,"PI_HIGH"))
+
+coverage <- vector()
+width <- vector()
+widthadj <- vector()
+for (i in 1:length(consegna)){
+  TXT = consegna[i]
+  out = read.table(paste0(PATH,"PI_HIGH/",TXT))
+  coverage[i] = mean(out$V1 <= y0 & y0 <= out$V2)
+  grid = seq(0,10,length.out = 500)
+  C = grid[which.max(sapply(grid, function(c) mean(out$V1 - c <= y0 & y0 <= out$V2 + c) ) >=.9 )]
+  width[i] = mean(out$V2 - out$V1)
+  widthadj[i] = width[i] + 4*C
+}
+res = data.frame(id=consegna, coverage, width, widthadj)
+#res$score = round( ( res$widthadj - max(res$widthadj) ) / ( min(res$widthadj) - max(res$widthadj)  ),2)
+res %>% arrange( widthadj)
+
+#B = res$score
+```
+
+---
+
+# VS
+
+Data from Stanford HIV Drug Resistance Database
+
+96 relevant variables
+
+---
+
+```{r, echo=FALSE}
+
+PATH = "/Volumes/GoogleDrive/My Drive/PHDECOSTAT/XXXIV_CYCLE/SL3/Exam/"
+S = read.csv2(paste0(PATH,"TRUE/trueS.txt"), header = T)$x
+consegna = list.files(paste0(PATH,"VS"))
+TDP <- vector()
+FDR <- vector()
+MCC <- vector()
+act = (1:201 %in% S)*1
+SIZE <- vector()
+for (i in 1:length(consegna)){
+  TXT = consegna[i]
+  Shat = read.table(paste0(PATH,"VS/",TXT))$V1
+  SIZE[i] <- length(Shat)
+  pred = (1:201 %in% Shat)*1
+  FDR[i] <- (length(Shat) - sum(Shat %in% S))/max(1,length(Shat))
+  TDP[i] <- (sum(Shat %in% S))/length(S)
+  MCC[i] <- mccr(act,pred)
+}
+res = data.frame(id=consegna, SIZE, FDR, TDP, MCC)
+#res$score = round( ( res$MCC - min(res$MCC) ) / ( max(res$MCC) - min(res$MCC)  ) , 2)
+res %>% arrange(desc(MCC))
+
+#C = res$score
+```
+
+<!-- # SCORE -->
+
+<!-- ```{r, echo=FALSE} -->
+<!-- res$tot = round( ( (A+B+C) /3 ) * 50 )  -->
+<!-- res %>% select(id,tot) %>% arrange(desc(tot)) -->
+<!-- ``` -->
+
